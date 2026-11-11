@@ -1,0 +1,46 @@
+    //-----------------VERTICES MANIPULATION--------------------------------------
+    // Vector::is_empty() tells whether a vector is empty or not
+    // Vector::size() returns the number of vertices in the graph
+
+    // Vector::push_back(List) adds a vertex in the end of an adjacency vector
+    // Vector::push_front(List) adds a vertex in the beginning of an adjacency vector
+
+    // Vector::pop_back() erases a vartex in the end of an adgacency vector
+    // Vector::pop_front() erases a vertex in the beginning of an adgacency vector
+    // Vector::erase(index) erases a given vertex using a given index
+    // Vector::remove(List) erases all vertices that are the same to the given one
+
+    // Vector::[index] returns an adjacency list of a given vartex
+    // Vector::clear() destroys a graph
+
+    //------------------ADJACENCY LIST MANIPULATION------------------
+    // Vector::List::get_size() returns the number of adgacent vertices, i.e. neighbors, of a given vertex
+    // Vertex::List::is_empty() tells whether an adgacency list empty
+    // Vertex::List::contains(Pair(vertex, weight)) tells whether there's such a node in this adjacency list
+
+    // Vector::List::push_front(Pair) adds a given Pair in the beggining of the list
+    // Vecotr::List::push_back(Pair) adds a given Pair to the end of the list
+    // Vector::List::delete(Pair) deletes given Pair's node from the list
+
+    // Vector::List::front() returns a reference to the head node of a list
+    // Vector::List::back() returns a reference to the tail node of a list
+
+    // Vector::List::operator+(List)  contantiation of two lists
+    // Vector::List::operator==(List)  returns a bool value telling if all nodes of both adjacency lists are the same
+    // Vector:List::operator=(List other)  saves other's adjacency list to this's one, without changing other
+    // Vector::List::operator=(List&&)  steals other's list by making this point to other
+    // Vector::List::operator[](index)  let i = index, returns the node of a list that is the i-th node from the head
+    // Vector::List::operator!=(List) returns a boolean value telling if a given list isn't equal to this one
+   
+    // Vector::List::clear() destroys a list
+
+    //---------------------------PAIR CONSTRUCTION---------------------
+    // Vector[vertex].push_back/push_front(Pair(other_vertex, given_weight)) adds an edge between vertex and 'other_vertex' with 
+    // the weight that is equal to 'given_weight'
+
+    //---------------------------LIST CONSTRUCTION----------------------
+    //Vector[vertex] list = new List(Pair)
+
+    //---------------------------VECTOR CONSTRUCTION----------------------
+    // Weighted_graph graph = new Vector();
+    //then adding lists
