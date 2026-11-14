@@ -1,0 +1,9 @@
+.DS_Store
+*.dSYM/
+main
+tests/BFS
+tests/Stack
+tests/depth_first_search
+tests/depth_first_search_iterative
+tests/shortest_path
+tests/main
