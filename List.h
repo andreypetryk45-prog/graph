@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <string>
 #include <utility>
 
 template <typename T>
@@ -174,7 +175,7 @@ public:
         }
         return false;
     }
-    int get_size() const
+    int size() const
     {
         return m_size;
     }

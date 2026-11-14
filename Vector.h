@@ -10,9 +10,26 @@ template <typename T>
 class Vector
 {
 private:
-    int m_size;
-    int n_capacity;
-    T *array;
+    int m_size = 0;
+    int n_capacity = 0;
+    T *array = nullptr;
+
+    void resize()
+    {
+        // COPYING ELEMENTS AND DELETING OLD ARRAY'S ELEMENTS
+        int new_capacity = (n_capacity == 0) ? 1 : 2 * n_capacity;
+        T *new_array = (T *)std::malloc(new_capacity * sizeof(T)); // allocating memory
+        for (int i = 0; i < m_size; i++)
+        {
+            new (&new_array[i]) T(std::move(array[i])); // new(&new_array[i]) - каже, де потрібно сконструктувати обʼєкт, типу Т,  std::move(array[i]) - говорить, що саме потрібно туди скопіювати
+            array[i].~T();                              // invoking a deconstructor for the old array element
+        }
+        std::free(array); // freeing memory for the pointers
+
+        // UPDATING INFO
+        n_capacity = new_capacity; // updating the n_capacity value
+        array = new_array;         // making array point to the newly created array
+    }
 
 public:
     class Iterator
@@ -86,6 +103,37 @@ public:
     }
 
     Vector() : m_size(0), n_capacity(0), array(nullptr) {}
+    Vector(int size) : n_capacity(size)
+    {
+        if (size < 0)
+        {
+            throw std::invalid_argument("THere can't such a value as " + std::to_string(size));
+        }
+        if (size == 0)
+        {
+            return; // it's the case of a default constructor
+        }
+
+        array = static_cast<T *>(std::malloc(size * sizeof(T)));
+
+        if (array == nullptr) // the memory hasn't been allocated
+        {
+            throw std::bad_alloc();
+        }
+        try
+        {
+            for (int i = 0; i < size; i++)
+            {
+                new (&array[i]) T();
+                ++m_size;
+            }
+        }
+        catch (...)
+        {
+            clear(); // freeing all memory that has been allocated so far
+            throw;
+        }
+    }
     Vector(const Vector &other)
     {
         this->n_capacity = other.n_capacity;
@@ -198,22 +246,6 @@ public:
         erase(0);
     }
 
-    void resize()
-    {
-        // COPYING ELEMENTS AND DELETING OLD ARRAY'S ELEMENTS
-        int new_capacity = (n_capacity == 0) ? 1 : 2 * n_capacity;
-        T *new_array = (T *)std::malloc(new_capacity * sizeof(T)); // allocating memory
-        for (int i = 0; i < m_size; i++)
-        {
-            new (&new_array[i]) T(std::move(array[i])); // new(&new_array[i]) - каже, де потрібно сконструктувати обʼєкт, типу Т,  std::move(array[i]) - говорить, що саме потрібно туди скопіювати
-            array[i].~T();                              // invoking a deconstructor for the old array element
-        }
-        std::free(array); // freeing memory for the pointers
-
-        // UPDATING INFO
-        n_capacity = new_capacity; // updating the n_capacity value
-        array = new_array;         // making array point to the newly created array
-    }
     void push_back(const T &value)
     {
         T temp(value);
